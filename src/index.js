@@ -12,6 +12,10 @@ const chartOptions = {
   rightPriceScale: {
     borderVisible: false,
   },
+  timeScale: {
+    timeVisible: true,
+    secondsVisible: false,
+  },
 };
 
 const chart = createChart(document.getElementById("container"), chartOptions);
@@ -79,7 +83,7 @@ async function run() {
     },
     onMessage(event) {
       // handle subscription notification message here. This function is called once per subscription message.
-      const start = Date.now();
+      const start = Math.round(+new Date() / 1000);
       const price = Number(event.parsedJson.price) / 1_000_000;
       const quantity =
         (Number(event.parsedJson.base_asset_quantity_filled) / 1_000_000_000) *
