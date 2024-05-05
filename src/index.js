@@ -26,10 +26,6 @@ const candlestickSeries = chart.addCandlestickSeries({
   wickUpColor: "#26a69a",
   wickDownColor: "#ef5350",
 });
-candlestickSeries.applyOptions({
-  upColor: "red",
-  downColor: "blue",
-});
 
 // const areaSeries = chart.addAreaSeries({
 //   topColor: "#2962FF",
@@ -129,11 +125,11 @@ async function run() {
         price;
       console.log(event.parsedJson, "price:", price, "quantity:", quantity);
       candlestickSeries.update({
-        timeMin,
-        open_price,
-        high_price,
-        low_price,
-        close_price,
+        time: timeMin,
+        open: open_price,
+        high: high_price,
+        low: low_price,
+        close: close_price,
       });
       const bid = event.parsedJson.is_bid;
       const color = bid == true ? "#ef5350" : "#26a69a";
