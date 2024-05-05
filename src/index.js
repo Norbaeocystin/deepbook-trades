@@ -31,6 +31,20 @@ candlestickSeries.applyOptions({
   downColor: "blue",
 });
 
+// const areaSeries = chart.addAreaSeries({
+//   topColor: "#2962FF",
+//   bottomColor: "rgba(41, 98, 255, 0.28)",
+//   lineColor: "#2962FF",
+//   lineWidth: 2,
+// });
+// areaSeries.priceScale().applyOptions({
+//   scaleMargins: {
+//     // positioning the price scale for the area series
+//     top: 0.1,
+//     bottom: 0.4,
+//   },
+// });
+
 const volumeSeries = chart.addHistogramSeries({
   color: "#26a69a",
   priceFormat: {
@@ -50,9 +64,24 @@ volumeSeries.priceScale().applyOptions({
   },
 });
 
+// areaSeries.setData([
+//   // { time: "2018-10-19", value: 54.9 },
+//   // { time: "2018-10-22", value: 54.98 },
+//   // { time: "2018-10-23", value: 57.21 },
+//   // { time: "2018-10-24", value: 57.42 },
+//   // { time: "2018-10-25", value: 56.43 },
+//   // { time: "2018-10-26", value: 55.51 },
+// ]);
+
 // setting the data for the volume series.
 // note: we are defining each bars color as part of the data
 volumeSeries.setData([
+  // { time: "2018-10-19", value: 19103293.0, color: "#26a69a" },
+  // { time: "2018-10-22", value: 21737523.0, color: "#26a69a" },
+  // { time: "2018-10-23", value: 29328713.0, color: "#26a69a" },
+  // { time: "2018-10-24", value: 37435638.0, color: "#26a69a" },
+  // { time: "2018-10-25", value: 25269995.0, color: "#ef5350" },
+  // { time: "2018-10-26", value: 24973311.0, color: "#ef5350" },
 ]);
 
 const candlesLow = {};
@@ -99,7 +128,6 @@ async function run() {
         (Number(event.parsedJson.base_asset_quantity_filled) / 1_000_000_000) *
         price;
       console.log(event.parsedJson, "price:", price, "quantity:", quantity);
-      // areaSeries.update({ time: start, value: price });
       candlestickSeries.update({
         timeMin,
         open_price,
