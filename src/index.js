@@ -83,6 +83,7 @@ volumeSeries.setData([
 const candlesLow = {};
 const candlesOpen = {};
 const candlesHigh = {};
+const quantities = {};
 
 chart.timeScale().fitContent();
 
@@ -120,7 +121,7 @@ async function run() {
         candlesHigh[timeMin] = price;
         candlesLow[timeMin] = price;
       }
-      const quantity =
+      let quantity =
         (Number(event.parsedJson.base_asset_quantity_filled) / 1_000_000_000) *
         price;
       console.log(event.parsedJson, "price:", price, "quantity:", quantity);
@@ -132,8 +133,14 @@ async function run() {
         close: close_price,
       });
       const bid = event.parsedJson.is_bid;
-      const color = bid == true ? "#ef5350" : "#26a69a";
-      volumeSeries.update({ time: start, value: quantity, color: color });
+      if (timeMin in quantities) {
+        let prev_quantity = quantities[timeMin];
+        quantity = quantity + prev_quantity;
+      } else {
+        quantities[timeMin] = quantity;
+      }
+      // const color = bid == true ? "#ef5350" : "#26a69a";
+      volumeSeries.update({ time: timeMin, value: quantity, color: "#2962FF" });
     },
   });
 }
